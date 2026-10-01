@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from models import RecommendationRequest, Recipe
 from recommendation_service import find_best_recipe
@@ -7,6 +8,22 @@ from recommendation_service import find_best_recipe
 app = FastAPI(
     title="Food Recommendation API",
     version="1.0.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=False,
+    allow_methods=[
+        "GET",
+        "POST",
+    ],
+    allow_headers=[
+        "Content-Type",
+    ],
 )
 
 
